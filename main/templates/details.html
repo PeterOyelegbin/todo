@@ -3,12 +3,12 @@
 {% block content %}
 <!-- Show details of todo item -->
 <div class="card">
-    <h1 class="card-header bg-primary text-white">{{ item.task }}</h1>
+    <h1 class="card-header bg-primary text-white">{{ object.task }}</h1>
     <div class="card-body">
-        <p>Details: {{ item.details }}</p>
+        <p>Details: {{ object.details }}</p>
     </div>
     <div class="card-footer">
-        <p>Status:  {{ item.status }}</p>
+        <p>Status:  {{ object.status }}</p>
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<!-- Delete todo item -->
+<div class="d-flex justify-content-center">
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ object.task }}"?</p>
+        <input class="btn btn-danger" type="submit" value="Yes">
+    </form>
+</div>
+{% endblock %}

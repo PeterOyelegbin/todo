@@ -1,45 +1,37 @@
-from django.shortcuts import render, redirect
+from django.views import generic
 from .models import Todo
 from .form import TodoForm
 
 # Create your views here.
-def home(request):
-    items = Todo.objects.all()
-    return render(request, 'home.html', {'items': items})
+class HomePage(generic.ListView):
+    queryset = Todo.objects.all()
+    template_name = "home.html"
 
 # About page
-def about(request):
-    return render(request, 'about.html', {})
+class AboutPage(generic.TemplateView):
+    template_name = "about.html"
 
 # Add task
-def addItem(request):
-    form = TodoForm()
-    if request.method == 'POST':
-        form = TodoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    return render(request, 'add.html', {'form': form})
+class AddItem(generic.CreateView):
+    model = Todo
+    form_class = TodoForm
+    template_name = 'add.html'
+    success_url = '/'
 
 # Task details
-def detailItem(request, pk):
-    item = Todo.objects.get(id=pk)
-    return render(request, 'details.html', {'item': item})
+class DetailItem(generic.DetailView):
+    queryset = Todo.objects.all()
+    template_name = 'details.html'
 
 # Update task
-def updateItem(request, pk):
-    item = Todo.objects.get(id=pk)
-    form = TodoForm(instance=item)
-    if request.method == 'POST':
-        form = TodoForm(request.POST, instance=item)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    else:
-        return render(request, 'update.html', {'form': form})
+class UpdateItem(generic.UpdateView):
+    model = Todo
+    form_class = TodoForm
+    template_name = 'update.html'
+    success_url = '/'
 
 # Delete task
-def deleteItem(request, pk):
-    item = Todo.objects.get(id=pk)
-    item.delete()
-    return redirect('home')
+class DeleteItem(generic.DeleteView):
+    model = Todo
+    template_name = 'delete.html'
+    success_url = '/'
