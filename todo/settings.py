@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import pymysql
 
+
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,19 +83,19 @@ WSGI_APPLICATION = 'todo.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'USER': config("DB_USER"),
-    #     'NAME': config("DB_NAME"),
-    #     'PASSWORD': config("DB_PASS"),
-    #     'HOST': config("DB_HOST"),
-    #     'PORT': config("DB_PORT"),
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
     # }
+
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': config("DB_USER"),
+        'NAME': config("DB_NAME"),
+        'PASSWORD': config("DB_PASS"),
+        'HOST': config("DB_HOST"),
+        'PORT': config("DB_PORT"),
+    }
 }
 
 
