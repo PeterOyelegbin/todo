@@ -2,14 +2,17 @@ from django.shortcuts import render, redirect
 from .models import Todo
 from .form import TodoForm
 
+
 # Create your views here.
 def home(request):
     items = Todo.objects.all()
     return render(request, 'home.html', {'items': items})
 
+
 # About page
 def about(request):
     return render(request, 'about.html', {})
+
 
 # Add task
 def addItem(request):
@@ -21,10 +24,12 @@ def addItem(request):
             return redirect('home')
     return render(request, 'add.html', {'form': form})
 
+
 # Task details
 def detailItem(request, pk):
     item = Todo.objects.get(id=pk)
     return render(request, 'details.html', {'item': item})
+
 
 # Update task
 def updateItem(request, pk):
@@ -37,6 +42,7 @@ def updateItem(request, pk):
             return redirect('home')
     else:
         return render(request, 'update.html', {'form': form})
+
 
 # Delete task
 def deleteItem(request, pk):
