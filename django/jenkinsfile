@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 // This pipeline is designed to be used with a multibranch pipeline job in Jenkins.
-@Library("jenkins-shared-lib") // Global library declaration from Jenkins server configuration
+// @Library("jenkins-shared-lib") // Global library declaration from Jenkins server configuration
 // library identifier: "jenkins-shared-lib@master", retriever: modernSCM([$class: "GitSCMSource", remote: "https://github.com/PeterOyelegbin/jenkins-shared-lib.git", credentialsID: "github-cred"]) // Individual library declaration
 
 pipeline {
