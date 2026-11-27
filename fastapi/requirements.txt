@@ -1,0 +1,13 @@
+fastapi[standard]
+sqlalchemy
+alembic
+jinja2
+# uvicorn[standard]
+# pydantic[email]
+# databases[asyncpg]
+# asyncpg
+# python-multipart
+# httpx
+# pytest
+# pytest-asyncio
+# pytest-cov
