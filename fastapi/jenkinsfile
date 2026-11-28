@@ -15,16 +15,18 @@ pipeline {
             //     }
             // }
             steps {
-                script {
-                    echo "testing the application ..."
-                    echo "Executing pipeline for branch $BRANCH_NAME"
-                    sh '''
-                        python3 -m venv venv
-                        . venv/bin/activate
-                        pip install --upgrade pip
-                        pip install -r requirements.txt
-                        pytest -v test.py
-                    '''
+                dir('fastapi') {
+                    script {
+                        echo "testing the application ..."
+                        echo "Executing pipeline for branch $BRANCH_NAME"
+                        sh '''
+                            python3 -m venv venv
+                            . venv/bin/activate
+                            pip install --upgrade pip
+                            pip install -r requirements.txt
+                            pytest -v test.py
+                        '''
+                    }
                 }
             }
         }
