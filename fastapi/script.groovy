@@ -3,9 +3,9 @@
 def buildImage(String imageTag) {
     echo "building the application docker image..."
     withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-        sh "docker build -t peteroyelegbin/todo-fastapi:$imageTag ."
-        sh "echo '${script.DOCKERHUB_PASSWORD}' | docker login -u '${script.DOCKERHUB_USERNAME}' --password-stdin"
-        // sh "docker push peteroyelegbin/todo-fastapi:$imageTag"
+        sh "sudo docker build -t peteroyelegbin/todo-fastapi:$imageTag ."
+        sh "echo '${script.DOCKERHUB_PASSWORD}' | sudo docker login -u '${script.DOCKERHUB_USERNAME}' --password-stdin"
+        // sh "sudo docker push peteroyelegbin/todo-fastapi:$imageTag"
     }
 }
 
