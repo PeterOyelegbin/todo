@@ -6,16 +6,13 @@
 
 pipeline {
     agent any
+    parameters {
+        string(name: "IMAGE_TAG", defaultValue: "", description: "tag to deploy")
+    }
     stages {
         stage("test") {
-            // agent {
-            //     docker {
-            //         image 'python:3.11-slim'
-            //         reuseNode true
-            //     }
-            // }
             steps {
-                dir('fastapi') {
+                dir("fastapi") {
                     script {
                         echo "testing the application ..."
                         echo "Executing pipeline for branch $BRANCH_NAME"
@@ -34,9 +31,17 @@ pipeline {
             when {
                 expression {BRANCH_NAME == "main"}
             }
+            // input {
+            //     message "Enter image tag to deploy"
+            //     ok "Done"
+            //     parameters {string(name: "IMAGE_TAG", defaultValue: "", description: "tag to deploy")}
+            // }
             steps {
-                script {
-                    echo "building the application ..."
+                dir("fastapi") {
+                    script {
+                        echo "building the application ..."
+                        buildImage("${params.IMAGE_TAG}")
+                    }
                 }
             }
         }

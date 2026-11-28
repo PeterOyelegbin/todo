@@ -1,0 +1,33 @@
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Local SQLite database and logs (prevents overwriting production data)
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# Environment secrets
+.env
+.env.*
+
+# Python cache and test artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Git and CI/CD files
+.git/
+.gitignore
+Jenkinsfile
+jenkinsfile
+Dockerfile
+.dockerignore
+
+# Hosting configuration files
+vercel.json

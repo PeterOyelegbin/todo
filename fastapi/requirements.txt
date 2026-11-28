@@ -3,7 +3,7 @@ sqlalchemy
 alembic
 jinja2
 pytest
-# uvicorn[standard]
+uvicorn[standard]
 # pydantic[email]
 # databases[asyncpg]
 # asyncpg
