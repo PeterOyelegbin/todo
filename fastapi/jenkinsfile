@@ -15,8 +15,10 @@ pipeline {
         stage("init") {
             steps {
                 checkout scm
-                script {
-                    gv = load 'script.groovy'
+                dir("fastapi") {
+                    script {
+                        gv = load "script.groovy"
+                    }
                 }
             }
         }
