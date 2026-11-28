@@ -9,7 +9,11 @@ def gv
 pipeline {
     agent any
     parameters {
-        string(name: "IMAGE_TAG", defaultValue: "", description: "tag to deploy")
+        string(name: "IMAGE_TAG", defaultValue: "", description: "Tag to build and deploy (defaults to BUILD_NUMBER if empty)")
+    }
+    environment {
+        // Fallback to BUILD_NUMBER if IMAGE_TAG wasn't manually provided
+        DEPLOY_TAG = "${params.IMAGE_TAG?.trim() ? params.IMAGE_TAG.trim() : env.BUILD_NUMBER}"
     }
     stages {
         stage("init") {
@@ -51,15 +55,15 @@ pipeline {
             steps {
                 dir("fastapi") {
                     script {
-                        echo "building the application ..."
-                        buildImage("${params.IMAGE_TAG}")
+                        echo "Building image with tag ${env.DEPLOY_TAG}..."
+                        gv.buildImage(env.DEPLOY_TAG)
                     }
                 }
             }
         }
         stage("deploy") {
             when {
-                expression {BRANCH_NAME == "main"}
+                branch 'main'
             }
             steps {
                 script {
