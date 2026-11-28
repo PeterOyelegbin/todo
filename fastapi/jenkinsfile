@@ -8,12 +8,12 @@ pipeline {
     agent any
     stages {
         stage("test") {
-            agent {
-                docker {
-                    image 'python:3.11-slim'
-                    reuseNode true
-                }
-            }
+            // agent {
+            //     docker {
+            //         image 'python:3.11-slim'
+            //         reuseNode true
+            //     }
+            // }
             steps {
                 script {
                     echo "testing the application ..."
