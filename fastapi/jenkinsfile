@@ -4,12 +4,22 @@
 // @Library("jenkins-shared-lib") // Global library declaration from Jenkins server configuration
 // library identifier: "jenkins-shared-lib@master", retriever: modernSCM([$class: "GitSCMSource", remote: "https://github.com/PeterOyelegbin/jenkins-shared-lib.git", credentialsID: "github-cred"]) // Individual library declaration
 
+def gv
+
 pipeline {
     agent any
     parameters {
         string(name: "IMAGE_TAG", defaultValue: "", description: "tag to deploy")
     }
     stages {
+        stage("init") {
+            steps {
+                checkout scm
+                script {
+                    gv = load 'script.groovy'
+                }
+            }
+        }
         stage("test") {
             steps {
                 dir("fastapi") {
