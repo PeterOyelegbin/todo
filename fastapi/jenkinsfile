@@ -8,11 +8,23 @@ pipeline {
     agent any
     stages {
         stage("test") {
+            agent {
+                docker {
+                    image 'python:3.11-slim'
+                    reuseNode true
+                }
+            }
             steps {
                 script {
                     echo "testing the application ..."
                     echo "Executing pipeline for branch $BRANCH_NAME"
-                    sh "pytest test.py"
+                    sh '''
+                        python -m venv venv
+                        . venv/bin/activate
+                        pip install --upgrade pip
+                        pip install -r requirements.txt
+                        pytest -v test.py
+                    '''
                 }
             }
         }
@@ -35,6 +47,18 @@ pipeline {
                     echo "deploying the application ..."
                 }
             }
+        }
+    }
+    post {
+        always {
+            // Clean up workspace after build to save disk space
+            cleanWs()
+        }
+        success {
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed! Check the test logs or build output."
         }
     }
 }
